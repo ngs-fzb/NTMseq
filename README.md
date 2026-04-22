@@ -52,6 +52,8 @@ For Research use only. Not for use in diagnostic procedures.
 
 [Input: FastA files; Required tools: AMRfinder+ and database]
 
+[Input: FastA files; Required tools: abricate and database - vfdb by default]
+
 
 ### Setup
 

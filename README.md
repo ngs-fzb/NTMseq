@@ -24,6 +24,8 @@ rm main.tar.gz
 
 **2. Run the installation script**
 
+cd /NTMseq-main/installation 
+
 bash installation_NTMseq.sh
 
 Note: This will create separate conda environments for each tool used in the pipeline.

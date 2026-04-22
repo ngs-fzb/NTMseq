@@ -20,6 +20,7 @@ cd NTMseq
 
 wget https://github.com/ngs-fzb/NTMseq/archive/refs/heads/main.tar.gz && tar -xzf main.tar.gz
 
+rm main.tar.gz
 
 **2. Run the installation script**
 

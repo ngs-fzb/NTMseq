@@ -120,13 +120,13 @@ Optional:
 
 1. Configure your analysis in:
    
-config_NTMseq.txt
+config/config_NTMseq.txt
 
 (e.g. paths to FASTQ files, databases, output directory, analyses you want to do)
 
 Run the pipeline:
 
-bash starter_NTMseq.sh config_NTMseq.txt
+bash /scripts/starter_NTMseq.sh config/config_NTMseq.txt
 
 ### Help
 

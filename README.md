@@ -14,9 +14,12 @@ This repository contains NTMseq, a comprehensive bioinformatics pipeline for the
 
 **1. Clone the repository:**
 
-git clone https://github.com/ngs-fzb/NTMseq.git
+mkdir NTMseq
 
 cd NTMseq
+
+wget https://github.com/ngs-fzb/NTMseq/archive/refs/heads/main.tar.gz && tar -xzf main.tar.gz
+
 
 **2. Run the installation script**
 

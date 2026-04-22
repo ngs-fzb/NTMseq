@@ -72,6 +72,7 @@ cd /NTMseq-main/installation
 bash installation_NTMseq.sh
 
 Note: This will create separate conda environments for each tool used in the pipeline.
+Note: Specific tool versions are defined in the script. If you choose to use newer versions, you may need to update the conda environment accordingly. However, there is no guarantee that the pipeline will still function correctly.
 
 **3. Download required databases**
    

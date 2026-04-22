@@ -5,10 +5,53 @@
 # NTMseq
 This repository contains NTMseq, a comprehensive bioinformatics pipeline for the analysis of whole-genome sequencing data from non-tuberculous mycobacteria (NTM), including quality control, taxonomic classification, assembly, approximate phylogenetic analysis, plasmid and (drug) resistance analysis.
 
+For Research use only. Not for use in diagnostic procedures. 
+
 ### Requirements
 - Linux-based system (preferably not WSL on Windows as some tools might not be compatible)
 - Basic command-line experience
 - Conda (Miniconda or Anaconda)
+
+### Modules ###
+
+1.	Quality control of raw sequence reads
+	
+[Input: FastQ files; Required tools: FastQC and multiQC]
+
+2.	Preprocessing of raw sequence reads (e.g. adapter removal)
+
+[Input: FastQ files; Required tools: fastp]
+
+2.	Contamination detection
+   
+[Input: FastQ files or FastA files; Required tools: kraken2 + krona; Required database: kraken2 + krona]
+
+3. Multi-locus sequence typing (MLST)
+   
+[Input: FastQ files; Required tools: SRST2; Required database: pubMLST (automatic download)]
+
+4.	Assembly of short-read illumina sequencing data
+    
+[Input: FastQ files; Required tools: Shovill; Output: FastA files]
+
+5.	Fast phylogenetic analysis using Mashtree
+
+[Input: FastQ files or FastA files; Required tools: Mashtree]
+
+6.	Detection of known plasmids
+
+[Input: FastQ files; Required tools: SRST2 and seqkit; Required database: PLSDB or custom]
+
+7.	De novo prediction of plasmid contigs
+
+[Input: FastQ files; Required tools: plasmidspades]
+
+[Input: FastA files; Required tools: platon; Required database: platon]
+
+8.	Resistance and virulence gene prediction
+
+[Input: FastA files; Required tools: AMRfinder+ and database]
+
 
 ### Setup
 

@@ -115,9 +115,9 @@ _Plasmid prediction_
 
 1. Custom plasmid database: [https://ccb-microbe.cs.uni-saarland.de/plsdb/plasmids/]
 
-Note:
+You can download the full PLSDB plasmids database or a subset thereof (e.g. only those of mycobacteriaceae) via API. You will need to create multi-fasta file containing all plasmids.
 
-Alternatively, download the multi-fasta file PLSDB_mycobacteriaceae_DATE_AMOUNT.fasta in this repo for a curated database of mycobacterial plasmids, to be used in conjunction with SRST2 
+Alternatively, use the pre-downloaded multi-fasta file of 208 mycobacteriaceae plasmids that can be found in this repository (db folder): 2023_11_03_v2_PLSDB_mycobacteriaceae_208plasmids.fasta
 
 Optional:
 

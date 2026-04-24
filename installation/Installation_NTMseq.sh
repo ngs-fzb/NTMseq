@@ -1,0 +1,213 @@
+#!/usr/bin/env bash
+
+##Tested on Ubuntu 20.04.6 LTS (GNU/Linux 5.4.0-215-generic x86_64) and conda v22.11.1##
+
+VERSION="1.1.0"
+SCRIPT_NAME="$(basename "$0")"
+START_TIME="$(date '+%Y-%m-%d %H:%M:%S')"
+RUN_ID="$(date '+%Y%m%d_%H%M%S')"
+
+LOG_DIR="${LOG_DIR:-$(pwd)/logs_NTMseq_install}"
+INSTALL_LOG="${LOG_DIR}/installation_${RUN_ID}.log"
+CHECK_LOG="${LOG_DIR}/checks_${RUN_ID}.log"
+
+print_logo() {
+cat << "EOF"
+
+╔══════════════════════════════════════╗
+║                                      ║
+║   ███╗   ██╗████████╗███╗   ███╗     ║
+║   ████╗  ██║╚══██╔══╝████╗ ████║     ║
+║   ██╔██╗ ██║   ██║   ██╔████╔██║     ║
+║   ██║╚██╗██║   ██║   ██║╚██╔╝██║     ║
+║   ██║ ╚████║   ██║   ██║ ╚═╝ ██║     ║
+║   ╚═╝  ╚═══╝   ╚═╝   ╚═╝     ╚═╝     ║
+║                                      ║
+║            N T M s e q               ║
+║   Whole genome sequencing analysis   ║ 
+║    of non-tuberculous mycobacteria   ║       
+║          by Margo Diricks            ║
+╚══════════════════════════════════════╝
+
+EOF
+}
+print_logo
+
+mkdir -p "${LOG_DIR}"
+
+# Send regular script output to installation log and screen
+exec > >(tee -a "${INSTALL_LOG}") 2>&1
+
+line() {
+    printf '%*s\n' "${COLUMNS:-80}" '' | tr ' ' '-'
+}
+
+section() {
+    echo
+    line
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"
+    line
+}
+
+info() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] INFO: $*"
+}
+
+warn() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] WARNING: $*"
+}
+
+fail() {
+    local exit_code=$?
+    echo
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: Script failed while running: ${BASH_COMMAND}"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: Exit code: ${exit_code}"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: Installation log: ${INSTALL_LOG}"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: Check log: ${CHECK_LOG}"
+    exit "${exit_code}"
+}
+trap fail ERR
+
+install_env() {
+    local name="$1"
+    shift
+    section "Installing ${name}"
+    info "Command: ${CONDA_CREATE_CMD} create -n ${name} $* -y"
+    "${CONDA_CREATE_CMD}" create -n "${name}" "$@" -y
+}
+
+run_check() {
+    local label="$1"
+    shift
+
+    {
+        echo
+        echo "=================================================================="
+        echo "CHECK: ${label}"
+        echo "TIME : $(date '+%Y-%m-%d %H:%M:%S')"
+        echo "CMD  : $*"
+        echo "------------------------------------------------------------------"
+
+        if "$@"; then
+            echo "STATUS: OK"
+        else
+            local exit_code=$?
+            echo "STATUS: FAILED"
+            echo "EXIT CODE: ${exit_code}"
+        fi
+    } >> "${CHECK_LOG}" 2>&1
+}
+
+if command -v mamba >/dev/null 2>&1; then
+    CONDA_CREATE_CMD="mamba"
+    info "Using mamba for environment creation."
+else
+    CONDA_CREATE_CMD="conda"
+    warn "mamba was not found. Falling back to conda."
+fi
+
+section "NTMseq2 installation started"
+echo "Script      : ${SCRIPT_NAME}"
+echo "Version     : ${VERSION}"
+echo "Started     : ${START_TIME}"
+echo "Log dir     : ${LOG_DIR}"
+echo "Install log : ${INSTALL_LOG}"
+echo "Check log   : ${CHECK_LOG}"
+
+echo
+info "This script installs the required tools for NTMseq2 using mamba."
+info "Each tool is installed in a separate environment to reduce dependency clashes."
+warn "Pinned versions are used for reproducibility and may not be the newest available releases."
+
+install_env "NTMseq_multiqc" \
+    bioconda::fastqc=0.12.1 \
+    bioconda::multiqc=1.34
+
+install_env "NTMseq_seqkit" \
+    bioconda::seqkit=2.13.0 \
+    conda-forge::pigz=2.8
+
+install_env "NTMseq_fastp" \
+    bioconda::fastp=1.3.2
+
+install_env "NTMseq_fastani" \
+    bioconda::fastani=1.34
+
+install_env "NTMseq_kraken2" \
+    bioconda::kraken2=2.17.1 \
+    bioconda::krona=2.8.1
+
+install_env "NTMseq_srst2" \
+    bioconda::srst2=0.2.0 \
+    conda-forge::parallel=20260122
+
+install_env "NTMseq_NTMprofiler" \
+    bioconda::ntm-profiler=0.8.1
+
+install_env "NTMseq_shovill" \
+bioconda::shovill=1.4.2
+
+warn "Shovill 1.4.2 does not work on some machines, likely due to missing CPU features. Check installation script for alternative"
+#Then try
+# install_env "NTMseq_shovill" \
+    # -c conda-forge \
+    # -c bioconda \
+    # python=2.7 \
+    # shovill=1.1.0 \
+    # skesa=2.4.0
+
+
+
+install_env "NTMseq_mashtree" \
+    bioconda::mashtree=1.4.6
+
+install_env "NTMseq_amrfinder" \
+    bioconda::ncbi-amrfinderplus=4.2.7
+
+install_env "NTMseq_abricate" \
+    bioconda::abricate=1.4.0
+
+install_env "NTMseq_spades" \
+     bioconda::spades=4.2.0 \
+	
+warn "SPAdes 4.2.0 does not work on some machines, likely due to missing CPU features. Check installation script for alternative"
+#Then try
+# install_env "NTMseq_spades" \
+    # bioconda::spades=3.15.5 \
+    # python=3.10
+
+install_env "NTMseq_platon" \
+    bioconda::platon=1.7
+
+section "Running post-installation checks"
+: > "${CHECK_LOG}"
+echo "NTMseq2 post-installation checks" >> "${CHECK_LOG}"
+echo "Started: $(date '+%Y-%m-%d %H:%M:%S')" >> "${CHECK_LOG}"
+echo "Generated by: ${SCRIPT_NAME} (v${VERSION})" >> "${CHECK_LOG}"
+
+run_check "multiqc version"            conda run -n NTMseq_multiqc multiqc --version
+run_check "seqkit version"             conda run -n NTMseq_seqkit seqkit version
+run_check "fastp version"              conda run -n NTMseq_fastp fastp --version
+run_check "fastANI version"            conda run -n NTMseq_fastani fastANI --version
+run_check "kraken2 version"            conda run -n NTMseq_kraken2 kraken2 --version
+run_check "krona binary location"      conda run -n NTMseq_kraken2 which ktImportText
+run_check "srst2 version"              conda run -n NTMseq_srst2 srst2 --version
+run_check "ntm-profiler version"       conda run -n NTMseq_NTMprofiler ntm-profiler --version
+run_check "shovill version"            conda run -n NTMseq_shovill shovill --version
+run_check "skesa version"              conda run -n NTMseq_shovill skesa --version
+run_check "megahit version"            conda run -n NTMseq_shovill megahit --version
+run_check "mashtree version"           conda run -n NTMseq_mashtree mashtree --version
+run_check "amrfinder version"          conda run -n NTMseq_amrfinder amrfinder --version
+run_check "abricate version"           conda run -n NTMseq_abricate abricate --version
+run_check "spades version"             conda run -n NTMseq_spades spades.py --version
+run_check "platon version"             conda run -n NTMseq_platon platon --version
+
+echo >> "${CHECK_LOG}"
+echo "Finished: $(date '+%Y-%m-%d %H:%M:%S')" >> "${CHECK_LOG}"
+
+END_TIME="$(date '+%Y-%m-%d %H:%M:%S')"
+section "NTMseq2 installation finished successfully"
+echo "Started : ${START_TIME}"
+echo "Ended   : ${END_TIME}"
+echo "Install log written to: ${INSTALL_LOG}"
+echo "Check log written to  : ${CHECK_LOG}"

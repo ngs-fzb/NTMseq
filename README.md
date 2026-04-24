@@ -30,25 +30,29 @@ For Research use only. Not for use in diagnostic procedures.
    
 [Input: FastQ files; Required tools: SRST2; Required database: pubMLST (automatic download)]
 
-4.	Assembly of short-read illumina sequencing data
+4. NTM (sub)species and resistance prediction
+
+[Input: FastQ/FastA files; Required tools: NTMprofiler; Required database: ntm-db]
+
+5.	Assembly of short-read illumina sequencing data
     
 [Input: FastQ files; Required tools: Shovill; Output: FastA files]
 
-5.	Fast phylogenetic analysis using Mashtree
+6.	Fast phylogenetic analysis using Mashtree
 
 [Input: FastQ files or FastA files; Required tools: Mashtree]
 
-6.	Detection of known plasmids
+7.	Detection of known plasmids
 
 [Input: FastQ files; Required tools: SRST2 and seqkit; Required database: PLSDB or custom]
 
-7.	De novo prediction of plasmid contigs
+8.	De novo prediction of plasmid contigs
 
 [Input: FastQ files; Required tools: plasmidspades]
 
 [Input: FastA files; Required tools: platon; Required database: platon]
 
-8.	Resistance and virulence gene prediction
+9.	Resistance and virulence gene prediction
 
 [Input: FastA files; Required tools: AMRfinder+ and database]
 

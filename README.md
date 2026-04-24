@@ -61,7 +61,7 @@ For Research use only. Not for use in diagnostic procedures.
 
 ### Setup
 
-**1. Download the repository:**
+**1. Download the repository**
 
 mkdir NTMseq
 

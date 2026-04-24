@@ -92,7 +92,7 @@ TLDR: wget https://genome-idx.s3.amazonaws.com/kraken/k2_pluspf_16_GB_20260226.t
 
 3. Krona: [https://github.com/marbl/Krona/wiki/KronaTools]
 
-TLDR: conda run -n NTMseq_kraken2 ktUpdateTaxonomy.sh /database_directory
+TLDR: conda run -n NTMseq_kraken2 ktUpdateTaxonomy.sh /path/to/krona-db
 
 _Typing_
 

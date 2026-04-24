@@ -90,7 +90,7 @@ _Taxonomy_
    
 TLDR: wget https://genome-idx.s3.amazonaws.com/kraken/k2_pluspf_16_GB_20260226.tar.gz && tar -xvzf k2_pluspf_16_GB_20260226.tar.gz
 
-3. Krona: [https://github.com/marbl/Krona/wiki/KronaTools
+3. Krona: [https://github.com/marbl/Krona/wiki/KronaTools]
 
 TLDR: conda run -n NTMseq_kraken2 ktUpdateTaxonomy.sh /database_directory
 

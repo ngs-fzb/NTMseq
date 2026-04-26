@@ -1,0 +1,17 @@
+label,color
+Mycobacterium abscessus,#4cbb17
+Mycobacterium avium,#1f77b4
+Mycobacterium intracellulare,#ff7f0e
+Mycobacterium chelonae,#9467bd
+Mycobacterium kansasii,#d62728
+Mycobacterium scrofulaceum,#8c564b
+Mycobacterium xenopi,#e377c2
+Mycobacterium simiae,#17becf
+Mycobacterium fortuitum,#bcbd22
+Mycobacterium gordonae,#7f7f7f
+Mycobacterium ulcerans,#aec7e8
+Mycobacterium marinum,#ffbb78
+Mycobacterium malmoense,#98df8a
+Potential novel species,#000000
+Other,#dbd7d2
+Empty,#ffffff

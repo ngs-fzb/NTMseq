@@ -137,7 +137,7 @@ bash /scripts/starter_NTMseq.sh config/config_NTMseq.txt
 
 ### Help
 
-Do you need help or have feature requests? Just drop me a mail @ mdiricks@fz-borstel.de
+Do you need help or have feature requests? Put your question/request in the issues tab on this page.
 
 ### Citation
 

@@ -134,7 +134,7 @@ config/config_NTMseq.txt
 
 Run the pipeline:
 
-bash /path/to/starter_NTMseq.sh /path/to/config_NTMseq.txt
+bash /path/to/starter_NTMseq.sh /path/to/NTMseq.config
 
 ### Help
 

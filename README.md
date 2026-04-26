@@ -99,6 +99,7 @@ _Typing_
 1. MLST via SRST2: [https://github.com/katholt/srst2]
 
 This database is updated automatically when running the pipeline. However, due to a recent change in data access policy at pubMLST [https://pubmlst.org/change-data-access-policy], only ST types and profiles submitted up to December 2024 will be reported. For the newest ST types, please submit your assemblies directly to the pubMLST website, after login.
+
 Currently, MLST typing is only available for _M. abscessus_
 
 _Resistance prediction_

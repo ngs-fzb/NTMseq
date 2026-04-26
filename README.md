@@ -105,7 +105,7 @@ _Resistance prediction_
 
 1. NTM-Profiler: [https://github.com/jodyphelan/NTM-Profiler]
 
-TLDR: conda run -n NTMseq_NTMprofiler ntm-profiler update_db
+TLDR: cd into folder where you want to install database; conda run -n NTMseq_NTMprofiler ntm-profiler update_db
 
 3. AMRFinder: [https://github.com/ncbi/amr/wiki/Upgrading#database-updates]
 

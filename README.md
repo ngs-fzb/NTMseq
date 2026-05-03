@@ -73,7 +73,7 @@ rm main.tar.gz
 
 **2. Run the installation script**
 
-cd /NTMseq-main/installation 
+cd ./NTMseq-main/installation 
 
 bash installation_NTMseq.sh
 

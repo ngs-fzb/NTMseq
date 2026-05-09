@@ -110,7 +110,7 @@ TLDR: cd into folder where you want to install database; conda run -n NTMseq_NTM
 
 3. AMRFinder: [https://github.com/ncbi/amr/wiki/Upgrading#database-updates]
 
-TLDR: conda run -n NTMseq_AMRfinder amrfinder_update -d </database_directory>
+TLDR: conda run -n NTMseq_amrfinder amrfinder_update -d </database_directory>
 
 _Plasmid prediction_
 

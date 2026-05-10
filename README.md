@@ -3,7 +3,7 @@
 </p>
 
 # NTMseq
-This repository contains NTMseq, a comprehensive bioinformatics pipeline for the analysis of whole-genome sequencing data from non-tuberculous mycobacteria (NTM), including quality control, taxonomic classification, assembly, approximate phylogenetic analysis, plasmid and (drug) resistance analysis.
+This repository contains NTMseq, a comprehensive bioinformatics pipeline for the analysis of short-read whole-genome sequencing data from non-tuberculous mycobacteria (NTM), including quality control, taxonomic classification, assembly, approximate phylogenetic analysis, plasmid and (drug) resistance analysis.
 
 For Research use only. Not for use in diagnostic procedures. 
 

@@ -29,6 +29,7 @@ For Research use only. Not for use in diagnostic procedures.
 3. Multi-locus sequence typing (MLST)
    
 [Input: FastQ files; Required tools: SRST2; Required database: pubMLST (automatic download)]
+
 #Note: this is currently being updated and replaced by MLST typing from assemblies with mlst from tseemann
 
 4. NTM (sub)species and resistance prediction

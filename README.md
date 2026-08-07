@@ -111,11 +111,17 @@ Allows API-keys to be used to download the latest pubMLST typing data (including
 This module is currently being implemented and will replace the MLST via SRST2 module. 
 
 Updating this database:
+
 $ conda activate NTMseq_mlst 
+
 $ cd PATH/to/store/pubMLST/database
+
 $ mlstdb connect --db pubmlst --api-key
+
 #Get the key from your account page at https://pubmlst.org/bigsdb; this needs to be done on each machine you will run the pipeline on.
+
 $ mlstdb fetch --db pubmlst
+
 --> remove all except the two myco schemes (mycobacteria spp. = 8 loci ribosomal protein MLST and Mycobacteroides abscessus) and call it mlst_schemes_pubmlst_myco.tab
 Then add to the path to this file to your config file and set do_MLST=yes and do_MLST_update=yes. This will update the database automatically. Running it on another day will download a new database in a new folder. The command that is used for that is mlstdb update --input mlst_schemes_pubmlst_myco.tab
 

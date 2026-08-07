@@ -29,6 +29,7 @@ For Research use only. Not for use in diagnostic procedures.
 3. Multi-locus sequence typing (MLST)
    
 [Input: FastQ files; Required tools: SRST2; Required database: pubMLST (automatic download)]
+#Note: this is currently being updated and replaced by MLST typing from assemblies with mlst from tseemann
 
 4. NTM (sub)species and resistance prediction
 
@@ -63,19 +64,19 @@ For Research use only. Not for use in diagnostic procedures.
 
 **1. Download the repository**
 
-mkdir NTMseq
+$ mkdir NTMseq
 
-cd NTMseq
+$ cd NTMseq
 
-wget https://github.com/ngs-fzb/NTMseq/archive/refs/heads/main.tar.gz && tar -xzf main.tar.gz
+$ wget https://github.com/ngs-fzb/NTMseq/archive/refs/heads/main.tar.gz && tar -xzf main.tar.gz
 
-rm main.tar.gz
+$ rm main.tar.gz
 
 **2. Run the installation script**
 
-cd ./NTMseq-main/installation 
+$ cd ./NTMseq-main/installation 
 
-bash Installation_NTMseq.sh
+$ bash Installation_NTMseq.sh
 
 Note: This will create separate conda environments for each tool used in the pipeline.
 Note: Specific tool versions are defined in the script. If you choose to use newer versions, you may need to update the conda environment accordingly. However, there is no guarantee that the pipeline will still function correctly.
@@ -88,29 +89,47 @@ _Taxonomy_
 
 1. Kraken 2: [https://benlangmead.github.io/aws-indexes/k2] --> choose your preferred database, depending on the space you have available
    
-TLDR: wget https://genome-idx.s3.amazonaws.com/kraken/k2_pluspf_16_GB_20260226.tar.gz && tar -xvzf k2_pluspf_16_GB_20260226.tar.gz
+TLDR: 
+$ wget https://genome-idx.s3.amazonaws.com/kraken/k2_pluspf_16_GB_20260226.tar.gz && tar -xvzf k2_pluspf_16_GB_20260226.tar.gz
 
 3. Krona: [https://github.com/marbl/Krona/wiki/KronaTools]
 
-TLDR: conda run -n NTMseq_kraken2 ktUpdateTaxonomy.sh /path/to/krona-db
+TLDR: 
+$ conda run -n NTMseq_kraken2 ktUpdateTaxonomy.sh /path/to/krona-db
 
 _Typing_
 
+Currently, MLST typing is only available for _M. abscessus_
+
 1. MLST via SRST2: [https://github.com/katholt/srst2]
 
-This database is updated automatically when running the pipeline. However, due to a recent change in data access policy at pubMLST [https://pubmlst.org/change-data-access-policy], only ST types and profiles submitted up to December 2024 will be reported. For the newest ST types, please submit your assemblies directly to the pubMLST website, after login. Alternatively, download the latest database via instructions mentioned at https://github.com/MDU-PHL/mlstdb.
+This database is updated automatically when running the pipeline. However, due to a recent change in data access policy at pubMLST [https://pubmlst.org/change-data-access-policy], only ST types and profiles submitted up to December 2024 will be reported. For the newest ST types, please submit your assemblies directly to the pubMLST website, after login.
 
-Currently, MLST typing is only available for _M. abscessus_
+2. MLST via mlst: [https://github.com/tseemann/mlst]
+Allows API-keys to be used to download the latest pubMLST typing data (including STs submitted after 2024).
+This module is currently being implemented and will replace the MLST via SRST2 module. 
+
+Updating this database:
+$ conda activate NTMseq_mlst 
+$ cd PATH/to/store/pubMLST/database
+$ mlstdb connect --db pubmlst --api-key
+#Get the key from your account page at https://pubmlst.org/bigsdb; this needs to be done on each machine you will run the pipeline on.
+$ mlstdb fetch --db pubmlst
+--> remove all except the two myco schemes (mycobacteria spp. = 8 loci ribosomal protein MLST and Mycobacteroides abscessus) and call it mlst_schemes_pubmlst_myco.tab
+Then add to the path to this file to your config file and set do_MLST=yes and do_MLST_update=yes. This will update the database automatically. Running it on another day will download a new database in a new folder. The command that is used for that is mlstdb update --input mlst_schemes_pubmlst_myco.tab
 
 _Resistance prediction_
 
 1. NTM-Profiler: [https://github.com/jodyphelan/NTM-Profiler]
 
-TLDR: cd into folder where you want to install database; conda run -n NTMseq_NTMprofiler ntm-profiler update_db
+TLDR: 
+$ cd into folder where you want to install database
+$ conda run -n NTMseq_NTMprofiler ntm-profiler update_db
 
 3. AMRFinder: [https://github.com/ncbi/amr/wiki/Upgrading#database-updates]
 
-TLDR: conda run -n NTMseq_amrfinder amrfinder_update -d </database_directory>
+TLDR: 
+$ conda run -n NTMseq_amrfinder amrfinder_update -d </database_directory>
 
 _Plasmid prediction_
 
@@ -128,11 +147,11 @@ Optional:
 
 1. Configure your analysis in:
    
-config/config_NTMseq.txt
+$ config/config_NTMseq.txt
 
 (e.g. paths to FASTQ files, databases, output directory, analyses you want to do)
 
-Run the pipeline:
+$ Run the pipeline:
 
 bash /path/to/starter_NTMseq.sh /path/to/NTMseq.config
 
